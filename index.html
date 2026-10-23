@@ -220,6 +220,7 @@
   .links { margin-top: 1.2rem; font-family: var(--mono); font-size: 1.05rem; color: var(--ink); }
   .cap { margin-top: 0.8rem; font-family: var(--mono); font-size: 0.95rem; color: var(--ink-faint); text-align: center; }
 
+  .demo { grid-template-columns: 1fr; }
 </style>
 </head>
 <body>
@@ -311,6 +312,23 @@
     </div>
   </section>
 
+  <!-- 6 · DEMO: scenes 1 and 2 -->
+  <section class="slide" id="c12-demo">
+    <div class="slide-inner">
+      <p class="k">Cenas 1 e 2 · o agente que funciona</p>
+      <p class="demo-word">→ demo</p>
+      <div class="demo">
+        <div>
+          <ol class="steps">
+            <li><span>Sugestão <q>Qual o processo para trocar a chave PIX de um fornecedor?</q> (~15 s, cita a política)</span></li>
+            <li><span>↻ e <q>Agenda os pagamentos da Serra Azul que vencem esta semana.</q></span></li>
+            <li><span>Cartão com a chave em verde, <q>Chave cadastrada no ERP</q> → <b>Aprovar</b></span></li>
+          </ol>
+          <p class="after">Guarde a política: o ERP é a única fonte de dados bancários. Ela volta na cena 3.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- 7 · FOUNDRY IQ CODE -->
   <section class="slide" id="foundry-iq">
@@ -362,10 +380,38 @@ request.Intents.Add(<span class="tk-kw">new</span> <span class="tk-type">Knowled
           <div class="stamp" style="right:1.2rem;bottom:0.9rem;font-size:1.4rem;transform:rotate(5deg)">Só fraude</div>
         </div>
       </div>
-
+      <div class="stage-cmd">
+        <a href="https://shell.azure.com" target="_blank" rel="noopener">Cloud Shell ↗</a>
+        <code id="attackCmd">az storage blob download --account-name stjacarandaba6aa1 -c palco -n kit.tar.gz -f kit.tar.gz --auth-mode login -o none --overwrite &amp;&amp; tar xzf kit.tar.gz &amp;&amp; ./scripts/attack.sh both</code>
+        <button type="button" data-copy="attackCmd">copiar</button>
+      </div>
+      <div class="stage-cmd second">
+        <span class="step">mostrar</span>
+        <code id="showCmd">cat data/attack/comunicado-serra-azul-dados-bancarios.md</code>
+        <button type="button" data-copy="showCmd">copiar</button>
+      </div>
     </div>
   </section>
 
+  <!-- 9 · DEMO: scene 3 -->
+  <section class="slide" id="c3-demo">
+    <div class="slide-inner">
+      <p class="k">Cena 3 · o Shields pega um documento e deixa o outro passar</p>
+      <p class="demo-word">→ demo</p>
+      <div class="demo">
+        <div>
+          <ol class="steps">
+            <li><span>Terminal: <code>./scripts/attack.sh both</code> (~20 s, "Indexado.")</span></li>
+            <li><span>↻, Shields <b>ligado</b>, a mesma pergunta da cena 2</span></li>
+            <li><span><q>Prompt Shields bloqueou comunicado-…</q> e o cartão <b>vermelho</b></span></li>
+            <li><span><b>Aprovar mesmo assim</b> → <q>Recusados pela trava de PIX</q></span></li>
+            <li><span>Aspire → Traces: <code>prompt_shields.attack_detected</code> e <code>pix_guard.refused</code></span></li>
+          </ol>
+          <p class="after">Visto em 9 de 11 tentativas. Nas outras 2, a busca trouxe a política junto e o modelo seguiu o ERP.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- 10 · PROMPT SHIELDS CODE -->
   <section class="slide" id="shields">
@@ -451,7 +497,7 @@ request.Intents.Add(<span class="tk-kw">new</span> <span class="tk-type">Knowled
   <!-- 13 · SCENE 4: one layer changed the other -->
   <section class="slide" id="c4">
     <div class="slide-inner">
-      <p class="k">Cena 4 · e sem o Shields?</p>
+      <p class="k">Cena 4 · e sem o Shields? → demo: ↻, desligue o Shields, a mesma pergunta, Rejeitar</p>
       <h2 class="t-lg">Com o Shields, o modelo <span class="lime">caiu mais</span>.</h2>
       <table class="ledger big">
         <thead><tr><th>O que o modelo viu</th><th>Resultado</th></tr></thead>
@@ -467,7 +513,7 @@ request.Intents.Add(<span class="tk-kw">new</span> <span class="tk-type">Knowled
   <!-- 14 · EVAL CODE -->
   <section class="slide" id="eval">
     <div class="slide-inner">
-      <p class="k">Cena 5 · camada 4 · eval</p>
+      <p class="k">Cena 5 · camada 4 · eval → rode <span style="color:var(--ink)">./scripts/eval.sh</span> agora</p>
       <h2 class="t-md">O ataque vira <span class="lime">caso de teste</span>.</h2>
       <div class="code-row">
         <div class="code">
